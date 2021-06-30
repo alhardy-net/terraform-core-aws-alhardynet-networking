@@ -1,3 +1,33 @@
+data "terraform_remote_state" "vpc-hub" {
+  backend = "remote"
+  config = {
+    organization = "bytebox"
+    workspaces = {
+      name = "core-aws-alhardynet-networking-hub-prod"
+    }
+  }
+}
+
+data "terraform_remote_state" "vpc-stage" {
+  backend = "remote"
+  config = {
+    organization = "bytebox"
+    workspaces = {
+      name = "core-aws-alhardynet-networking-vpc-stage"
+    }
+  }
+}
+
+data "terraform_remote_state" "vpc-prod" {
+  backend = "remote"
+  config = {
+    organization = "bytebox"
+    workspaces = {
+      name = "core-aws-alhardynet-networking-vpc-prod"
+    }
+  }
+}
+
 module "vpc-peering-hub-stage" {
   source  = "grem11n/vpc-peering/aws"
   version = "4.0.1"
