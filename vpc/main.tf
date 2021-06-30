@@ -1,9 +1,9 @@
 locals {
-  name                             = "alhardynet"
-  aws_region                       = "ap-southeast-2"
-  public_subnet_cidr               = cidrsubnet(var.vpc_cidr, 4, 0)
-  private_application_subnet_cidr  = var.private_application_subnet_count > 0 ? cidrsubnet(var.vpc_cidr, 2, 1) : 0
-  private_persistence_subnet_cidr  = var.private_persistence_subnet_count > 0 ? cidrsubnet(var.vpc_cidr, 2, 2) : 0
+  name                            = "alhardynet"
+  aws_region                      = "ap-southeast-2"
+  public_subnet_cidr              = cidrsubnet(var.vpc_cidr, 4, 0)
+  private_application_subnet_cidr = var.private_application_subnet_count > 0 ? cidrsubnet(var.vpc_cidr, 2, 1) : 0
+  private_persistence_subnet_cidr = var.private_persistence_subnet_count > 0 ? cidrsubnet(var.vpc_cidr, 2, 2) : 0
 }
 
 module "aws-vpc" {

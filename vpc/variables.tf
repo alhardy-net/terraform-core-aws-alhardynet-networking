@@ -9,27 +9,27 @@ variable "aws_assume_role" {
 }
 
 variable "vpc_cidr" {
-  type = string
+  type        = string
   description = "The CIDR block of the VPC."
 }
 
 variable "public_subnet_count" {
-  type = number
+  type        = number
   description = "The number of public subnets."
 }
 
 variable "use_single_nat_gateway" {
-  type = bool
+  type        = bool
   description = "If true uses a single nat gateway in one AZ, otherwise deploys a nat gateway in each AZ"
 }
 
 variable "private_application_subnet_count" {
-  type = number
+  type        = number
   description = "The number of private application subnets."
 }
 
 variable "private_persistence_subnet_count" {
-  type = number
+  type        = number
   description = "The number of private persistence subnets."
 }
 
