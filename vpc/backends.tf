@@ -3,7 +3,7 @@ terraform {
     organization = "bytebox"
 
     workspaces {
-      prefix = "alhardynet-aws-network-core-"
+      prefix = "core-aws-alhardynet-networking-vpc-"
     }
   }
 }
