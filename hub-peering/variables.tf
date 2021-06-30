@@ -23,21 +23,6 @@ variable "aws_assume_role" {
   description = "The AWS Role to assume for the AWS account"
 }
 
-variable "hub_vpc_id" {
-  type        = string
-  description = "The VPC ID of the stage account"
-}
-
-variable "stage_vpc_id" {
-  type        = string
-  description = "The VPC ID of the stage account"
-}
-
-variable "prod_vpc_id" {
-  type        = string
-  description = "The VPC ID of the prod account"
-}
-
 # Terraform Cloud
 variable "TFC_WORKSPACE_SLUG" {
   type        = string

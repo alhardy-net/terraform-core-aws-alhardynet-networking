@@ -37,8 +37,8 @@ module "vpc-peering-hub-stage" {
     aws.peer = aws.stage
   }
 
-  this_vpc_id = var.hub_vpc_id
-  peer_vpc_id = var.stage_vpc_id
+  this_vpc_id = data.terraform_remote_state.vpc-hub.outputs.vpc_id
+  peer_vpc_id = data.terraform_remote_state.vpc-stage.outputs.vpc_id
 
   auto_accept_peering = true
 
@@ -56,8 +56,8 @@ module "vpc-peering-hub-prod" {
     aws.peer = aws.prod
   }
 
-  this_vpc_id = var.hub_vpc_id
-  peer_vpc_id = var.prod_vpc_id
+  this_vpc_id = data.terraform_remote_state.vpc-hub.outputs.vpc_id
+  peer_vpc_id = data.terraform_remote_state.vpc-prod.outputs.vpc_id
 
   auto_accept_peering = true
   tags = {
