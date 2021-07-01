@@ -19,7 +19,7 @@ module "aws-vpc" {
 
 module "public-subnet" {
   source                 = "app.terraform.io/bytebox/aws-subnet-public/module"
-  version                = "0.0.2"
+  version                = "0.0.3"
   aws_region             = local.aws_region
   igw_id                 = module.aws-vpc.igw_id
   name                   = "${local.name}-public"
@@ -27,15 +27,13 @@ module "public-subnet" {
   use_single_nat_gateway = var.use_single_nat_gateway
   subnet_count           = var.public_subnet_count
   vpc_id                 = module.aws-vpc.vpc_id
-  enable_flow_log        = false # TODO: Enable this
   subnet_cidr            = local.public_subnet_cidr
 }
 
 module "private-application-subnet" {
   source                = "app.terraform.io/bytebox/aws-subnet-private/module"
-  version               = "0.0.2"
+  version               = "0.0.3"
   aws_region            = local.aws_region
-  enable_flow_log       = false # TODO: Enable this
   name                  = "${local.name}-private-application"
   nat_gateway_ids       = module.public-subnet.nat_gateway_ids
   subnet_cidr           = local.private_application_subnet_cidr
@@ -46,9 +44,8 @@ module "private-application-subnet" {
 
 module "private-persistence-subnet" {
   source                = "app.terraform.io/bytebox/aws-subnet-private/module"
-  version               = "0.0.2"
+  version               = "0.0.3"
   aws_region            = local.aws_region
-  enable_flow_log       = false # TODO: Enable this
   name                  = "${local.name}-private-persistence"
   nat_gateway_ids       = module.public-subnet.nat_gateway_ids
   subnet_cidr           = local.private_persistence_subnet_cidr
