@@ -6,6 +6,11 @@ locals {
   private_persistence_subnet_cidr = var.private_persistence_subnet_count > 0 ? cidrsubnet(var.vpc_cidr, 2, 2) : 0
 }
 
+resource "random_integer" "random" {
+  min = 1
+  max = 99
+}
+
 module "aws-vpc" {
   source                        = "app.terraform.io/bytebox/aws-vpc/module"
   version                       = "0.0.2"
@@ -21,7 +26,7 @@ module "flow_logs" {
   source  = "cloudposse/vpc-flow-logs-s3-bucket/aws"
   version = "0.12.1"
 
-  namespace  = local.name
+  namespace  = "${local.name}-${random_integer.random.id}"
   name       = "flowlogs"
 
   vpc_id = module.aws-vpc.vpc_id
