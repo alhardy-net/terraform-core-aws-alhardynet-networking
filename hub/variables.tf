@@ -18,6 +18,12 @@ variable "vpc_cidr" {
   description = "The CIDR block of the VPC."
 }
 
+variable "public_subnet_count" {
+  type        = number
+  description = "The number of public subnets"
+  default     = 1
+}
+
 variable "private_subnet_count" {
   type        = number
   description = "The number of private subnets"

@@ -1,6 +1,7 @@
 locals {
   name                = "alhardynet-hub"
-  private_subnet_cidr = cidrsubnet(var.vpc_cidr, 6, 0)
+  public_subnet_cidr = cidrsubnet(var.vpc_cidr, 6, 0)
+  private_subnet_cidr = cidrsubnet(var.vpc_cidr, 6, 1)
 }
 
 module "aws-vpc" {
@@ -22,6 +23,18 @@ module "flow_logs" {
   name       = "flowlogs"
 
   vpc_id = module.aws-vpc.vpc_id
+}
+
+module "public-subnet" {
+  source                 = "app.terraform.io/bytebox/aws-subnet-public/module"
+  version                = "0.0.3"
+  aws_region             = var.aws_region
+  igw_id                 = module.aws-vpc.igw_id
+  name                   = "${local.name}-public"
+  enable_nat_gateway     = false
+  subnet_count           = var.public_subnet_count
+  vpc_id                 = module.aws-vpc.vpc_id
+  subnet_cidr            = local.public_subnet_cidr
 }
 
 module "private-subnet" {
