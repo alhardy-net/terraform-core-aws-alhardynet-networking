@@ -33,8 +33,8 @@ module "public-subnet" {
   aws_region             = local.aws_region
   igw_id                 = module.aws-vpc.igw_id
   name                   = "${local.name}-public"
-  enable_nat_gateway     = true
-  use_single_nat_gateway = var.use_single_nat_gateway
+  enable_nat_gateway     = false # Disable for now, saving cost
+  # use_single_nat_gateway = var.use_single_nat_gateway # Disable for now, saving cost
   subnet_count           = var.public_subnet_count
   vpc_id                 = module.aws-vpc.vpc_id
   subnet_cidr            = local.public_subnet_cidr
@@ -45,7 +45,7 @@ module "private-application-subnet" {
   version               = "0.0.3"
   aws_region            = local.aws_region
   name                  = "${local.name}-private-application"
-  nat_gateway_ids       = module.public-subnet.nat_gateway_ids
+  nat_gateway_ids       = [] # Disable for now, saving cost, module.public-subnet.nat_gateway_ids
   subnet_cidr           = local.private_application_subnet_cidr
   subnet_count          = var.private_application_subnet_count
   vpc_id                = module.aws-vpc.vpc_id
@@ -57,11 +57,9 @@ module "private-persistence-subnet" {
   version               = "0.0.3"
   aws_region            = local.aws_region
   name                  = "${local.name}-private-persistence"
-  nat_gateway_ids       = module.public-subnet.nat_gateway_ids
+  nat_gateway_ids       = [] # Disable for now, saving cost, module.public-subnet.nat_gateway_ids
   subnet_cidr           = local.private_persistence_subnet_cidr
   subnet_count          = var.private_persistence_subnet_count
   vpc_id                = module.aws-vpc.vpc_id
   allow_internet_access = true
 }
-
-# TODO: Implement VPC Flow log module allow to create a S3 backed flow log for the VPC and Subnets
