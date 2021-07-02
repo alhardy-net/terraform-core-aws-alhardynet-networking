@@ -18,9 +18,9 @@ variable "vpc_cidr" {
   description = "The CIDR block of the VPC."
 }
 
-variable "public_subnet_count" {
+variable "public_vpn_subnet_count" {
   type        = number
-  description = "The number of public subnets"
+  description = "The number of public VPN subnets"
   default     = 1
 }
 
