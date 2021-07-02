@@ -9,7 +9,7 @@ module "aws-vpc" {
   version                       = "0.0.2"
   aws_region                    = var.aws_region
   vpc_cidr                      = var.vpc_cidr
-  manage_default_security_group = false
+  manage_default_security_group = true
   manage_default_network_acl    = false
   manage_default_route_table    = false
   name                          = local.name
