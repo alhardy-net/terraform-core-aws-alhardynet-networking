@@ -61,5 +61,5 @@ module "private-persistence-subnet" {
   subnet_cidr           = local.private_persistence_subnet_cidr
   subnet_count          = var.private_persistence_subnet_count
   vpc_id                = module.aws-vpc.vpc_id
-  allow_internet_access = true
+  allow_internet_access = false
 }
