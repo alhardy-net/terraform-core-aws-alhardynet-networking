@@ -30,7 +30,7 @@ module "public-subnet" {
   version                = "0.0.3"
   aws_region             = var.aws_region
   igw_id                 = module.aws-vpc.igw_id
-  name                   = "${local.name}-vpn-public"
+  name                   = "${local.name}-public"
   enable_nat_gateway     = false
   subnet_count           = var.public_subnet_count
   vpc_id                 = module.aws-vpc.vpc_id
