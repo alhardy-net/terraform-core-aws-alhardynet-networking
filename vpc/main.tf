@@ -22,15 +22,16 @@ module "aws-vpc" {
   name                          = local.name
 }
 
-module "flow_logs" {
-  source  = "cloudposse/vpc-flow-logs-s3-bucket/aws"
-  version = "0.12.1"
-
-  namespace  = "${local.name}-${random_integer.random.id}"
-  name       = "flowlogs"
-
-  vpc_id = module.aws-vpc.vpc_id
-}
+// TODO: Renable and fix unique name across environments. TC slug env not working can use this for current env
+//module "flow_logs" {
+//  source  = "cloudposse/vpc-flow-logs-s3-bucket/aws"
+//  version = "0.12.1"
+//
+//  namespace  = local.name
+//  name       = "flowlogs"
+//
+//  vpc_id = module.aws-vpc.vpc_id
+//}
 
 module "public-subnet" {
   source                 = "app.terraform.io/bytebox/aws-subnet-public/module"
