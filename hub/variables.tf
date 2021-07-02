@@ -18,6 +18,12 @@ variable "vpc_cidr" {
   description = "The CIDR block of the VPC."
 }
 
+variable "private_subnet_count" {
+  type        = number
+  description = "The number of private subnets"
+  default     = 1
+}
+
 # Terraform Cloud
 variable "TFC_WORKSPACE_SLUG" {
   type        = string
