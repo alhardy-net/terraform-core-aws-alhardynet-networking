@@ -13,6 +13,7 @@ module "aws-vpc" {
   manage_default_network_acl    = false
   manage_default_route_table    = false
   name                          = local.name
+  TFC_WORKSPACE_SLUG            = var.TFC_WORKSPACE_SLUG
 }
 
 module "flow_logs" {
@@ -35,6 +36,7 @@ module "public-subnet" {
   subnet_count           = var.public_subnet_count
   vpc_id                 = module.aws-vpc.vpc_id
   subnet_cidr            = local.public_subnet_cidr
+  TFC_WORKSPACE_SLUG     = var.TFC_WORKSPACE_SLUG
 }
 
 module "private-subnet" {
@@ -47,4 +49,5 @@ module "private-subnet" {
   subnet_count          = var.private_subnet_count
   vpc_id                = module.aws-vpc.vpc_id
   allow_internet_access = false
+  TFC_WORKSPACE_SLUG    = var.TFC_WORKSPACE_SLUG
 }
