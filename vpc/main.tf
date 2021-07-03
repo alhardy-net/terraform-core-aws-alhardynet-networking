@@ -46,6 +46,7 @@ module "public-subnet" {
   subnet_count           = var.public_subnet_count
   vpc_id                 = module.aws-vpc.vpc_id
   subnet_cidr            = local.public_subnet_cidr
+  TFC_WORKSPACE_SLUG     = var.TFC_WORKSPACE_SLUG
 }
 
 module "private-application-subnet" {
@@ -58,6 +59,7 @@ module "private-application-subnet" {
   subnet_count          = var.private_application_subnet_count
   vpc_id                = module.aws-vpc.vpc_id
   allow_internet_access = false
+  TFC_WORKSPACE_SLUG    = var.TFC_WORKSPACE_SLUG
 }
 
 module "private-persistence-subnet" {
@@ -70,4 +72,5 @@ module "private-persistence-subnet" {
   subnet_count          = var.private_persistence_subnet_count
   vpc_id                = module.aws-vpc.vpc_id
   allow_internet_access = false
+  TFC_WORKSPACE_SLUG    = var.TFC_WORKSPACE_SLUG
 }
