@@ -1,6 +1,8 @@
 locals {
   name                            = "alhardynet"
   aws_region                      = "ap-southeast-2"
+  tfc_workspace_slug_parts        = split("-", var.TFC_WORKSPACE_SLUG)
+  env                             = element(local.tfc_workspace_slug_parts, length(local.tfc_workspace_slug_parts)-1)
   public_subnet_cidr              = cidrsubnet(var.vpc_cidr, 4, 0)
   private_application_subnet_cidr = var.private_application_subnet_count > 0 ? cidrsubnet(var.vpc_cidr, 2, 1) : 0
   private_persistence_subnet_cidr = var.private_persistence_subnet_count > 0 ? cidrsubnet(var.vpc_cidr, 2, 2) : 0
@@ -20,18 +22,18 @@ module "aws-vpc" {
   manage_default_network_acl    = false
   manage_default_route_table    = false
   name                          = local.name
+  TFC_WORKSPACE_SLUG            = var.TFC_WORKSPACE_SLUG
 }
 
-// TODO: Renable and fix unique name across environments. TC slug env not working can use this for current env
-//module "flow_logs" {
-//  source  = "cloudposse/vpc-flow-logs-s3-bucket/aws"
-//  version = "0.12.1"
-//
-//  namespace  = local.name
-//  name       = "flowlogs"
-//
-//  vpc_id = module.aws-vpc.vpc_id
-//}
+module "flow_logs" {
+  source  = "cloudposse/vpc-flow-logs-s3-bucket/aws"
+  version = "0.12.1"
+
+  namespace  = local.name
+  name       = "flowlogs-${local.env}"
+
+  vpc_id = module.aws-vpc.vpc_id
+}
 
 module "public-subnet" {
   source                 = "app.terraform.io/bytebox/aws-subnet-public/module"
