@@ -41,10 +41,9 @@ module "public-subnet" {
 
 module "private-subnet" {
   source                = "app.terraform.io/bytebox/aws-subnet-private/module"
-  version               = "0.0.3"
+  version               = "0.0.4"
   aws_region            = var.aws_region
   name                  = "${local.name}-private"
-  nat_gateway_ids       = []
   subnet_cidr           = local.private_subnet_cidr
   subnet_count          = var.private_subnet_count
   vpc_id                = module.aws-vpc.vpc_id
