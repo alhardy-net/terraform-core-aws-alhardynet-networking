@@ -1,5 +1,6 @@
 aws_region_this      = "ap-southeast-2"
 aws_account_id_this  = "963600901337"
+aws_account_id_dev   = "171101346296"
 aws_account_id_stage = "156143153158"
 aws_account_id_prod  = "078110025121"
 aws_assume_role      = "DeveloperAccessRole"

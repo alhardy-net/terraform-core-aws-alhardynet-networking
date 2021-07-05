@@ -8,6 +8,11 @@ variable "aws_account_id_this" {
   description = "The AWS Account Id for the deployment"
 }
 
+variable "aws_account_id_dev" {
+  type        = string
+  description = "The AWS Account ID of the dev account to peer with"
+}
+
 variable "aws_account_id_stage" {
   type        = string
   description = "The AWS Account Id of the stage account to peer with"

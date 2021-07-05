@@ -8,6 +8,16 @@ data "terraform_remote_state" "vpc-hub" {
   }
 }
 
+data "terraform_remote_state" "vpc-dev" {
+  backend = "remote"
+  config = {
+    organization = "bytebox"
+    workspaces = {
+      name = "core-aws-alhardynet-networking-vpc-local"
+    }
+  }
+}
+
 data "terraform_remote_state" "vpc-stage" {
   backend = "remote"
   config = {
@@ -28,6 +38,25 @@ data "terraform_remote_state" "vpc-prod" {
   }
 }
 
+module "vpc-peering-hub-dev" {
+  source  = "grem11n/vpc-peering/aws"
+  version = "4.0.1"
+
+  providers = {
+    aws.this = aws
+    aws.peer = aws.dev
+  }
+
+  this_vpc_id = data.terraform_remote_state.vpc-hub.outputs.vpc_id
+  peer_vpc_id = data.terraform_remote_state.vpc-dev.outputs.vpc_id
+
+  auto_accept_peering = true
+
+  tags = {
+    Name = "hub-dev"
+  }
+}
+
 module "vpc-peering-hub-stage" {
   source  = "grem11n/vpc-peering/aws"
   version = "4.0.1"
@@ -43,7 +72,7 @@ module "vpc-peering-hub-stage" {
   auto_accept_peering = true
 
   tags = {
-    Name        = "hub-stage"
+    Name = "hub-stage"
   }
 }
 
@@ -61,6 +90,6 @@ module "vpc-peering-hub-prod" {
 
   auto_accept_peering = true
   tags = {
-    Name        = "hub-prod"
+    Name = "hub-prod"
   }
 }
