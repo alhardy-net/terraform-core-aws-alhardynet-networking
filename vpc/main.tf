@@ -58,7 +58,7 @@ module "private-application-subnet" {
   subnet_cidr           = local.private_application_subnet_cidr
   subnet_count          = var.private_application_subnet_count
   vpc_id                = module.aws-vpc.vpc_id
-  allow_internet_access = false
+  allow_internet_access = var.enable_nat_gateway
   TFC_WORKSPACE_SLUG    = var.TFC_WORKSPACE_SLUG
 }
 
@@ -71,6 +71,6 @@ module "private-persistence-subnet" {
   subnet_cidr           = local.private_persistence_subnet_cidr
   subnet_count          = var.private_persistence_subnet_count
   vpc_id                = module.aws-vpc.vpc_id
-  allow_internet_access = false
+  allow_internet_access = var.private_persistence_subnet_enable_nat_gateway
   TFC_WORKSPACE_SLUG    = var.TFC_WORKSPACE_SLUG
 }
