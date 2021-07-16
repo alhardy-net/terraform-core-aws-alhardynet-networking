@@ -18,8 +18,15 @@ variable "public_subnet_count" {
   description = "The number of public subnets."
 }
 
+variable "enable_nat_gateway" {
+  type        = bool
+  default     = false
+  description = "If true creates a nat gateway an adds route table entries for private application subnets"
+}
+
 variable "use_single_nat_gateway" {
   type        = bool
+  default     = true
   description = "If true uses a single nat gateway in one AZ, otherwise deploys a nat gateway in each AZ"
 }
 
@@ -31,6 +38,12 @@ variable "private_application_subnet_count" {
 variable "private_persistence_subnet_count" {
   type        = number
   description = "The number of private persistence subnets."
+}
+
+variable "private_persistence_subnet_enable_nat_gateway" {
+  type        = bool
+  default     = false
+  description = "Adds route tables entries to private persistence subnet for the nat gateway"
 }
 
 # Terraform Cloud
