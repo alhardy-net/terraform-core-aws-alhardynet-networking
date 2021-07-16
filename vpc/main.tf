@@ -37,7 +37,7 @@ module "flow_logs" {
 
 module "public-subnet" {
   source                 = "app.terraform.io/bytebox/aws-subnet-public/module"
-  version                = "0.0.3"
+  version                = "0.0.4"
   aws_region             = local.aws_region
   igw_id                 = module.aws-vpc.igw_id
   name                   = "${local.name}-public"
@@ -51,7 +51,7 @@ module "public-subnet" {
 
 module "private-application-subnet" {
   source                = "app.terraform.io/bytebox/aws-subnet-private/module"
-  version               = "0.0.3"
+  version               = "0.0.5"
   aws_region            = local.aws_region
   name                  = "${local.name}-private-application"
   nat_gateway_ids       = var.enable_nat_gateway ? module.public-subnet.nat_gateway_ids : []
@@ -59,12 +59,13 @@ module "private-application-subnet" {
   subnet_count          = var.private_application_subnet_count
   vpc_id                = module.aws-vpc.vpc_id
   allow_internet_access = var.enable_nat_gateway
+  availability_zones    = module.public-subnet.availability_zones
   TFC_WORKSPACE_SLUG    = var.TFC_WORKSPACE_SLUG
 }
 
 module "private-persistence-subnet" {
   source                = "app.terraform.io/bytebox/aws-subnet-private/module"
-  version               = "0.0.3"
+  version               = "0.0.5"
   aws_region            = local.aws_region
   name                  = "${local.name}-private-persistence"
   nat_gateway_ids       = var.enable_nat_gateway && var.private_persistence_subnet_enable_nat_gateway ? module.public-subnet.nat_gateway_ids : []
@@ -72,5 +73,6 @@ module "private-persistence-subnet" {
   subnet_count          = var.private_persistence_subnet_count
   vpc_id                = module.aws-vpc.vpc_id
   allow_internet_access = var.private_persistence_subnet_enable_nat_gateway
+  availability_zones    = module.public-subnet.availability_zones
   TFC_WORKSPACE_SLUG    = var.TFC_WORKSPACE_SLUG
 }
